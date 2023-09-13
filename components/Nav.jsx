@@ -12,7 +12,7 @@ const Nav = () => {
   const [toggleDropDown, setToggleDropDown] = useState(false)
 
 
-  //use effect
+  //use effect to fetch authentication providers
   useEffect(() => {
     const fetchProviders = async () => {
       const response = await getProviders(); //The response variable will contain an array of objects, each of which represents an authentication provider. 
