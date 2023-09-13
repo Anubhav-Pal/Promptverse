@@ -7,9 +7,10 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 const Nav = () => {
   const isUserLoggedIn = true;
 
-  // state
-
+  // states
   const [providers, setProviders] = useState(null);
+  const [toggleDropDown, setToggleDropDown] = useState(false)
+
 
   //use effect
   useEffect(() => {
@@ -72,7 +73,16 @@ const Nav = () => {
               height={30}
               alt="Profle Image"
               className="rounded-full"
+              onClick={() => setToggleDropDown((prev) => !prev)}
             />
+
+            {toggleDropDown && (
+              <div className="dropdown">
+                <Link href='/profile' className="dropdown_link" onClick={() => setToggleDropDown(false)}>My Profile</Link>
+                <Link href='/create-prompt' className="dropdown_link" onClick={() => setToggleDropDown(false)}>Create Prompt</Link>
+                <button type="button" className="mt-5 w-full black_btn">Sign out</button>
+              </div>
+            )}
           </div>
         ) : (<>
           {providers && Object.values(providers).map((provider) =>
