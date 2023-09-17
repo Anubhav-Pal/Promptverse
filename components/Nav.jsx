@@ -36,12 +36,6 @@ const Nav = () => {
 
       {/* Desktop navigation */}
 
-
-
-      {/* Next.config.js is not configured */}
-
-
-
       <div className="sm:flex hidden">
         {session?.user ? (
           <div className="flex gap:3 md:gap-3 items-center">
@@ -50,8 +44,8 @@ const Nav = () => {
             <Link href='/profile'>
               <Image
                 src={session?.user.image}
-                width={30}
-                height={30}
+                width={40}
+                height={40}
                 alt="Profle Image"
                 className="rounded-full"
               />

@@ -26,24 +26,24 @@ const Feed = () => {
   //   setSearchText(e.target.value);
   // }
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/prompt');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    useEffect(() => {
+      const fetchPosts = async () => {
+        try {
+          const response = await fetch('/api/prompt');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setPosts(data);
+          // console.log(data);
+        } catch (error) {
+          console.error('Error fetching posts:', error);
+          // Handle the error gracefully, e.g., display an error message to the user
         }
-        const data = await response.json();
-        setPosts(data);
-        // console.log(data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-        // Handle the error gracefully, e.g., display an error message to the user
-      }
-    };
+      };
 
-    fetchPosts();
-  }, [])
+      fetchPosts();
+    }, [])
   return (
     <section className="feed">
       <form className='relative w-full flex-center'>
