@@ -8,6 +8,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
   return (
     <div className="mt-16  prompt_layout">
       {data.map((post) => (
+        // console.log(post  )
         <PromptCard
           key={post._id}
           post={post}
@@ -18,20 +19,29 @@ const PromptCardList = ({ data, handleTagClick }) => {
 }
 
 const Feed = () => {
-  const [searchText, setSearchText] = useState('')
+  // const [searchText, setSearchText] = useState('')
   const [posts, setPosts] = useState([])
 
-  const handleSearchChange = (e) => {
-    setSearchText();
-  }
+  // const handleSearchChange = (e) => {
+  //   setSearchText(e.target.value);
+  // }
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/prompt')
-      const data = await response.json();
+      try {
+        const response = await fetch('/api/prompt');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setPosts(data);
+        // console.log(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+        // Handle the error gracefully, e.g., display an error message to the user
+      }
+    };
 
-      setPosts(data);
-    }
     fetchPosts();
   }, [])
   return (
@@ -40,12 +50,13 @@ const Feed = () => {
         <input
           type="text"
           placeholder='Search for a tag or a username'
-          value={searchText}
-          onChange={handleSearchChange}
+          // value={searchText}
+          // onChange={handleSearchChange}
           required
           className='search_input peer'
         />
       </form>
+      {console.log(posts)}
       <PromptCardList data={posts} handleTagClick={() => { }} />
     </section>
   )
